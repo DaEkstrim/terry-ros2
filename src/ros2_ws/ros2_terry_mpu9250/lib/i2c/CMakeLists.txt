@@ -1,0 +1,8 @@
+# I2C interface
+add_library(i2c_comm_interface INTERFACE)
+target_include_directories(i2c_comm_interface INTERFACE include/i2c_comm_interface)
+
+# Terry I2C communicator
+add_library(terry_i2c_communicator src/TerryI2cCommunicator.cpp)
+target_include_directories(terry_i2c_communicator PUBLIC include/terry_i2c_communicator)
+target_link_libraries(terry_i2c_communicator PUBLIC i2c_comm_interface PRIVATE i2c)
