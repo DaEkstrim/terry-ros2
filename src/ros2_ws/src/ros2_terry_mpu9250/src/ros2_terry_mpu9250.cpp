@@ -67,11 +67,11 @@ private:
         message.header.stamp = this->get_clock()->now();
         message.header.frame_id = "base_link";
         // Direct measurements
-        message.linear_acceleration_covariance = {0};
+        message.linear_acceleration_covariance[0] = -1.0;
         message.linear_acceleration.x = mpu9250_->getAccelX_mss();
         message.linear_acceleration.y = mpu9250_->getAccelY_mss();
         message.linear_acceleration.z = mpu9250_->getAccelZ_mss();
-        message.angular_velocity_covariance[0] = {0};
+        message.angular_velocity_covariance[0] = -1.0;
         message.angular_velocity.x = mpu9250_->getGyroX_rads();
         message.angular_velocity.y = mpu9250_->getGyroY_rads();
         message.angular_velocity.z = mpu9250_->getGyroZ_rads();
@@ -79,10 +79,10 @@ private:
         auto magMessage = sensor_msgs::msg::MagneticField();
         magMessage.header.stamp = message.header.stamp;
         magMessage.header.frame_id = message.header.frame_id;
+        magMessage.magnetic_field_covariance[0] = -1.0;
         magMessage.magnetic_field.x = mpu9250_->getMagX_uT();
         magMessage.magnetic_field.y = mpu9250_->getMagY_uT();
         magMessage.magnetic_field.z = mpu9250_->getMagZ_uT();
-        magMessage.magnetic_field_covariance[0] = {0};
 
         publisher_->publish(message);
         magPublisher_->publish(magMessage);
